@@ -25,4 +25,24 @@ Available states
 
 These formulas depend on the following formulas:
 
-* `epel <https://github.com/saltstack-formulas/epel-formula>`_    
+* `epel <https://github.com/saltstack-formulas/epel-formula>`_
+
+Pillar
+------
+
+In pillar the following items can be set:
+
+- logdir:
+      logdir location
+- rundir:
+      rundir location
+- server:
+      which puppet server should the agent use
+- report:
+      should the puppet agent report to master
+- pluginsync:
+      should the puppet agent use pluginsync
+- certname:
+      what is the certificate name of the agent/master
+- dns_alt_names:
+      under which dns aliasses is the puppet master reachable

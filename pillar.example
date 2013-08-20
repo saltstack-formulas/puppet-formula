@@ -5,6 +5,7 @@ puppet:
     server: puppet
     report: True
     pluginsync: True
+    certname: agent
   master:
     certname: puppet
     dns_alt_names: puppet

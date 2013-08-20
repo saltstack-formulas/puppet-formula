@@ -24,3 +24,4 @@ puppetmaster:
       - pkg: puppet-server
     - watch_in:
       - service: puppetmaster
+      - service: puppet

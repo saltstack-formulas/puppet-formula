@@ -13,7 +13,7 @@ puppet:
     - require:
       - pkg: puppet
 
-/etc/puppet
+/etc/puppet:
   - recurse
   - source: salt://puppet/agent/files
   - template: jinja

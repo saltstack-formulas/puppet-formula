@@ -1,7 +1,10 @@
 puppet-formula
 ==============
 
-Single Server puppet Deployment
+Salt puppet Deployment:  
+- puppet agent
+- puppet master
+- both
 
 .. note::
 

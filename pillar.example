@@ -1,0 +1,11 @@
+puppet:
+  logdir: '/var/log/puppet'
+  rundir: '/var/run/puppet'
+  agent:
+    server: puppet
+    report: True
+    pluginsync: True
+  master:
+    certname: puppet
+    dns_alt_names: puppet
+    

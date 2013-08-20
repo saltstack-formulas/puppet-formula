@@ -2,9 +2,9 @@ puppet-formula
 ==============
 
 Salt puppet Deployment:  
-- puppet agent
-- puppet master
-- both
+puppet agent  
+puppet master  
+both  
 
 .. note::
 

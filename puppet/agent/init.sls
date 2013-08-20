@@ -13,9 +13,9 @@ puppet:
     - require:
       - pkg: puppet
 
-/etc/puppet:
-  - recurse
-  - source: salt://puppet/agent/files
+/etc/puppet.conf:
+  file.managed:
+  - source: salt://puppet/agent/files/puppet.conf
   - template: jinja
   - require:
     - pkg: puppet

@@ -18,13 +18,9 @@ puppetmaster:
       - file: puppet.conf
 
 /etc/puppet/puppet.conf:
-  file.append:
-    - text: |
-      - [master]
-      - certname = {{ salt['pillar.get']('puppet:master:certname', grains['fqdn']) }}
-      - dns_alt_names = {{ salt['pillar.get']('puppet:master:dns_alt_names', puppet) }}
+  file.managed:
+    - source: salt://puppet/master/files/puppet.conf
     - require:
       - pkg: puppet-server
     - watch_in:
       - service: puppetmaster
-    

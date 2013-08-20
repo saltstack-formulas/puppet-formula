@@ -1,5 +1,8 @@
+{% if grains['osfullname'] in ('CentOS', 'RHEL') %}
 include:
+  - epel
   - puppet.repo
+{% endif %}
 
 puppet:
   pkg:

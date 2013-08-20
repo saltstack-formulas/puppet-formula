@@ -1,7 +1,9 @@
 include:
+{% if grains['osfullname'] in ('CentOS', 'RHEL') %}
   - epel
-  - puppet.agent
   - puppet.repo
+{% endif %}
+  - puppet.agent
   
 puppet-server:
   pkg:
@@ -15,11 +17,12 @@ puppetmaster:
       - pkg: puppet-server
       - file: puppet.conf
 
-/etc/puppet:
-  file:
-    - recurse
-    - source: salt://puppet/master/files
-    - template: jinja
+/etc/puppet/puppet.conf:
+  file.append:
+    - text: |
+      - [master]
+      - certname = {{ salt['pillar.get']('puppet:master:certname', grains['fqdn']) }}
+      - dns_alt_names = {{ salt['pillar.get']('puppet:master:dns_alt_names', puppet) }}
     - require:
       - pkg: puppet-server
     - watch_in:

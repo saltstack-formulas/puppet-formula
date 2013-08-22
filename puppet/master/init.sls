@@ -5,29 +5,32 @@ include:
 {% endif %}
   - puppet.agent
 
-{% if grains['osfullname'] in ('CentOS', 'RHEL') %}
-puppet-server:
-  pkg:
-    - installed
-{% elsif grains['osfullname'] in ('Debian', 'Ubuntu') %}
-puppetmaster:
-    pkg:
-    - installed
-{% endif %}    
 
-puppetmaster:
-  service:
-    - running
+puppet-server:
+  pkg.installed:
+{% if grains['osfullname'] in ('CentOS', 'RHEL') %}  
+    - name: puppet-server      
+{% elif grains['osfullname'] in ('Debian', 'Ubuntu') %}
+    - name: puppetmaster
+{% endif %}    
+  service.running:
+    - name: puppetmaster
     - enable: True
     - require:
       - pkg: puppet-server
-      - file: puppet.conf
+      - file: /etc/puppet/puppet.conf.master
 
-/etc/puppet/puppet.conf:
+puppetmaster:
+  grains.present:
+    - value: true
+
+/etc/puppet/puppet.conf.master:
   file.managed:
+    - name: /etc/puppet/puppet.conf
     - source: salt://puppet/master/files/puppet.conf
     - require:
       - pkg: puppet-server
     - watch_in:
       - service: puppetmaster
       - service: puppet
+

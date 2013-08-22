@@ -1,3 +1,5 @@
+{% from "puppet/package-map.jinja" import puppet with context %}
+
 include:
 {% if grains['osfullname'] in ('CentOS', 'RHEL') %}
   - epel
@@ -8,13 +10,9 @@ include:
 
 puppet-server:
   pkg.installed:
-{% if grains['osfullname'] in ('CentOS', 'RHEL') %}  
-    - name: puppet-server      
-{% elif grains['osfullname'] in ('Debian', 'Ubuntu') %}
-    - name: puppetmaster
-{% endif %}    
+    - name: {{ puppet.server }}      
   service.running:
-    - name: puppetmaster
+    - name: {{ master.service }}
     - enable: True
     - require:
       - pkg: puppet-server
@@ -31,6 +29,6 @@ puppetmaster:
     - require:
       - pkg: puppet-server
     - watch_in:
-      - service: puppetmaster
-      - service: puppet
+      - service: puppet-server
+      - service: puppet_agent
 

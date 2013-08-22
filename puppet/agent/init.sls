@@ -1,13 +1,17 @@
+{% from "puppet/package-map.jinja" import puppet with context %}
+
 {% if grains['osfullname'] in ('CentOS', 'RHEL') %}
 include:
   - epel
   - puppet.repo
 {% endif %}
 
-puppet:
+puppet_agent:
   pkg:
     - installed
+    - name: {{ puppet.agent }}
   service:
+    - name: {{ agent.service }}
     - running
     - enable: True
     - require:
@@ -25,9 +29,9 @@ puppet:
   - source: salt://puppet/agent/files/puppet.conf
   - template: jinja
   - require:
-    - pkg: puppet
+    - pkg: puppet_agent
   - watch_in:
-    - service: puppet
+    - service: puppet_agent
 {% endif %}
 
 puppetagent:

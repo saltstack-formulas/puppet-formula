@@ -1,0 +1,14 @@
+{% set puppet = salt['grains.filter_by']({
+    'Debian': {
+        'masterservice': 'puppetmaster',
+        'agentservice': 'puppet',
+        'server': 'puppetmaster',
+        'agent': 'puppet',
+    },
+    'RedHat': {
+        'masterservice': 'puppetmaster',
+        'agentservice': 'puppet',
+        'server': 'puppet-server',
+        'agent': 'puppet',
+    },
+}, merge=salt['pillar.get']('puppet:lookup')) %}

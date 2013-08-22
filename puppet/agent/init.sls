@@ -13,7 +13,7 @@ puppet:
     - require:
       - pkg: puppet
 
-/etc/puppet.conf:
+/etc/puppet/puppet.conf:
   file.managed:
   - source: salt://puppet/agent/files/puppet.conf
   - template: jinja

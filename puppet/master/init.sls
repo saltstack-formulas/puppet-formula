@@ -4,10 +4,16 @@ include:
   - puppet.repo
 {% endif %}
   - puppet.agent
-  
+
+{% if grains['osfullname'] in ('CentOS', 'RHEL') %}
 puppet-server:
   pkg:
     - installed
+{% elsif grains['osfullname'] in ('Debian', 'Ubuntu') %}
+puppetmaster:
+    pkg:
+    - installed
+{% endif %}    
 
 puppetmaster:
   service:

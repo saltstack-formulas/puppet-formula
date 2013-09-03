@@ -1,4 +1,4 @@
-{% from "puppet/package-map.jinja" import puppet with context %}
+{% from "puppet/map.jinja" import puppet with context %}
 
 include:
 {% if grains['osfullname'] in ('CentOS', 'RHEL') %}

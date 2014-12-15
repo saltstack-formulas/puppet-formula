@@ -7,12 +7,10 @@ include:
 {% endif %}
 
 puppet_agent:
-  pkg:
-    - installed
+  pkg.installed:
     - name: {{ puppet.agent }}
-  service:
+  service.running:
     - name: {{ agent.service }}
-    - running
     - enable: True
     - require:
       - pkg: puppet

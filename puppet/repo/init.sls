@@ -15,15 +15,13 @@
 # Completely ignore non-CentOS, non-RHEL systems
 {% if grains['osfullname'] in ('CentOS', 'RHEL') %}
 install_pubkey:
-  file:
-    - managed
+  file.managed:
     - name: /etc/pki/rpm-gpg/RPRPM-GPG-KEY-puppetlabs
     - source: {{ salt['pillar.get']('puppet:repo:pubkey', pkg.key) }}
     - source_hash:  {{ salt['pillar.get']('puppet:repo:pubkey_hash', pkg.key_hash) }}
 
 install_rpm:
-  pkg:
-    - installed
+  pkg.installed:
     - sources:
       - rpm: {{ salt['pillar.get']('puppet:repo:rpm', pkg.rpm) }}
     - requires:
@@ -31,8 +29,7 @@ install_rpm:
 
 {% if salt['pillar.get']('puppet:repo:disabled', False) %}
 disable_puppet_repo:
-  file:
-    - sed
+  file.sed:
     - name: /etc/yum.repos.d/puppet.repo
     - limit: '^enabled'
     - before: 1

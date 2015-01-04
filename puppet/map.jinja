@@ -11,4 +11,10 @@
         'server': 'puppet-server',
         'agent': 'puppet',
     },
+    'Arch': {
+        'masterservice': 'puppetmaster',
+        'agentservice': 'puppet',
+        'server': 'puppet',
+        'agent': 'puppet',
+    },
 }, merge=salt['pillar.get']('puppet:lookup')) %}

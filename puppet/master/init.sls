@@ -12,7 +12,7 @@ puppet-server:
   pkg.installed:
     - name: {{ puppet.server }}      
   service.running:
-    - name: {{ master.service }}
+    - name: {{ puppet.masterservice }}
     - enable: True
     - require:
       - pkg: puppet-server
@@ -20,11 +20,12 @@ puppet-server:
 
 puppetmaster:
   grains.present:
-    - value: true
+    - value: True
 
 /etc/puppet/puppet.conf.master:
   file.managed:
     - name: /etc/puppet/puppet.conf
+    - template: jinja
     - source: salt://puppet/master/files/puppet.conf
     - require:
       - pkg: puppet-server
